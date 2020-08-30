@@ -1,0 +1,6 @@
+__pycache__
+.DS_Store
+build
+dist
+Fairy_WeChat*.egg-info
+*.swp
