@@ -6,7 +6,7 @@ import time
 from sqlalchemy import Column, String, Text, Integer
 
 
-class WechatFuncInfo(object):
+class WeChatFuncInfo(object):
     func_map = {
         '1': '消息管理权限 ', '2': '用户管理权限', '3': '帐号服务权限', '4': '网页服务权限',
         '5': '微信小店权限', '6': '微信多客服权限', '7': '群发与通知权限 ', '8': '微信卡券权限',
@@ -21,6 +21,12 @@ class WechatFuncInfo(object):
 
 
 class WeChatAppMixin(object):
+
+    BIZ_TYPE_CHOICES = [
+        ('gzh', '公众号'),
+        ('xcx', '小程序')
+    ]
+
     appid = Column(String(32))
     biz_type = Column(String(32))
     access_token = Column(String(512))
@@ -88,7 +94,7 @@ class WeChatAppMixin(object):
 
 class WeChatUserMixin(object):
     appid = Column(String(32))
-    openid = Column(String(32))
+    openid = Column(String(32), nullable=False)
     access_token = Column(String(512))
     expires_at = Column(Integer)
     refresh_token = Column(String(1024))
@@ -102,6 +108,7 @@ class WeChatUserMixin(object):
     country = Column(String(32))
     avatar_url = Column(String(255))
     privilege = Column(String(64))
+    unionid = Column(String(32))
 
     def update_token(self, token):
         self.access_token = token.get('access_token')
